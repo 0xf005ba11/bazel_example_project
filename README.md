@@ -5,7 +5,7 @@ Project using various bazel features and also building a windows driver using th
 
 ## Quick Start
 
-1) Make sure [bazelisk](https://github.com/bazelbuild/bazelisk/releases) is installed and in your path (hint: named the binary bazel.exe). Bazelisk can be found on github.
+1) Make sure [bazelisk](https://github.com/bazelbuild/bazelisk/releases) is installed and in your path (hint: name the binary bazel.exe).
 2) Make sure [git for windows](https://gitforwindows.org/) is installed and in your path.
 3) Make sure [bazel buildifier](https://github.com/bazelbuild/buildtools/releases) is installed in your path if you plan to use the vscode bazel extension.
 4) Clone this repository and perform an initial build:
