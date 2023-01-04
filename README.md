@@ -8,7 +8,9 @@ Project using various bazel features and also building a windows driver using th
 1) Make sure [bazelisk](https://github.com/bazelbuild/bazelisk/releases) is installed and in your path (hint: name the binary bazel.exe).
 2) Make sure [git for windows](https://gitforwindows.org/) is installed and in your path.
 3) Make sure [bazel buildifier](https://github.com/bazelbuild/buildtools/releases) is installed in your path if you plan to use the vscode bazel extension.
-4) Clone this repository and perform an initial build:
+4) Download the latest [Enterprise WDK (EWDK)](https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk) and place somewhere (mounting the ISO should also work in theory).
+5) Set the ```EWDKDIR``` environment variable to the location of the EWDK. For example, if mounted to the E drive then ```EWDKDIR=E:\```.
+6) Clone this repository and perform an initial build:
 
 ```
 git clone git@github.com:0xf005ba11/bazel_example_project.git
