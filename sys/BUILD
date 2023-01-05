@@ -3,6 +3,7 @@ load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
 resource_script(
     name = "sys_rc",
     rcfile = "sys.rc",
+    tags = ["manual"],  # don't build on non-windows
 )
 
 cc_binary(

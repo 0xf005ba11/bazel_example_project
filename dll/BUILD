@@ -20,6 +20,7 @@ cc_library(
 resource_script(
     name = "dll_rc",
     rcfile = "dll.rc",
+    tags = ["manual"],
 )
 
 cc_shared_library(
@@ -28,10 +29,11 @@ cc_shared_library(
         "@platforms//os:linux": ["@//dll:dll.lds"],  # limit exports similar to windows def file
         "//conditions:default": [],
     }),
-    roots = [
-        ":dll_impl",
-        ":dll_rc",
-    ],
+    roots = [":dll_impl"] +
+            select({
+                "@platforms//os:windows": [":dll_rc"],
+                "//conditions:default": [],
+            }),
     static_deps = ["@//lib:lib"],
     user_link_flags = select({
         "@platforms//os:linux": ["-Wl,--version-script,$(location @//dll:dll.lds)"],
