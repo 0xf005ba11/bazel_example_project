@@ -1,10 +1,12 @@
+load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
+
 cc_library(
     name = "dll_impl",
     srcs = [
         "dll.cpp",
         "dll.h",
     ],
-    hdrs = ["dll.h"], # public interface headers
+    hdrs = ["dll.h"],  # public interface headers
     features = [
         "cpp20",
         "subsystem_windows",
@@ -15,16 +17,24 @@ cc_library(
     deps = ["@//lib:lib"],
 )
 
+resource_script(
+    name = "dll_rc",
+    rcfile = "dll.rc",
+)
+
 cc_shared_library(
     name = "dll",
     additional_linker_inputs = select({
-        "@platforms//os:linux": ["@//dll:dll.lds"], # limit exports similar to windows def file
+        "@platforms//os:linux": ["@//dll:dll.lds"],  # limit exports similar to windows def file
         "//conditions:default": [],
     }),
-    roots = [":dll_impl"],
+    roots = [
+        ":dll_impl",
+        ":dll_rc",
+    ],
     static_deps = ["@//lib:lib"],
     user_link_flags = select({
-        "@platforms//os:linux": [ "-Wl,--version-script,$(location @//dll:dll.lds)", ],
+        "@platforms//os:linux": ["-Wl,--version-script,$(location @//dll:dll.lds)"],
         "//conditions:default": [],
     }),
     visibility = ["//visibility:public"],

@@ -4,9 +4,9 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
     name = "bazel_ewdk_cc",
-    commit = "587525658a70d478f7488d8e0488ec1d56cb3e45",
+    commit = "8a4977d1317377f2dd19773274abf8519e6b5ffb",
     remote = "https://github.com/0xf005ba11/bazel_ewdk_cc",
-    shallow_since = "1672814757 -0700",
+    shallow_since = "1672954296 -0700",
 )
 
 # tag release-1.12.1 but shallow cloning

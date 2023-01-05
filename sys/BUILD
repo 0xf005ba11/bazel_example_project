@@ -1,3 +1,10 @@
+load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
+
+resource_script(
+    name = "sys_rc",
+    rcfile = "sys.rc",
+)
+
 cc_binary(
     name = "sys",
     srcs = glob(["*.cpp"]) +
@@ -23,4 +30,5 @@ cc_binary(
     ],
     linkshared = True,
     target_compatible_with = ["@platforms//os:windows"],
+    deps = [":sys_rc"],
 )
