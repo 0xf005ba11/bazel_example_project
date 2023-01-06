@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "matepek.vscode-catch2-test-adapter",
+        "bazelbuild.vscode-bazel",
+        "github.vscode-pull-request-github"
+    ]
+}
