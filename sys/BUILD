@@ -1,9 +1,15 @@
 load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
 
+filegroup(
+    name = "resource_hdrs",
+    srcs = ["resources.h"],
+)
+
 resource_script(
     name = "sys_rc",
     rcfile = "sys.rc",
     tags = ["manual"],  # don't build on non-windows
+    deps = [":resource_hdrs"],
 )
 
 cc_binary(
