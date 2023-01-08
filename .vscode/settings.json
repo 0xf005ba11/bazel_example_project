@@ -1,0 +1,9 @@
+{
+    "testMate.cpp.test.executables": "bazel-bin/*/*_test*",
+    "coverage-gutters.customizable.status-bar-toggler-watchCoverageAndVisibleEditors-enabled": true,
+    "coverage-gutters.showGutterCoverage": false,
+    "coverage-gutters.showLineCoverage": true,
+    "coverage-gutters.coverageFileNames": [
+        "coverage.xml"
+    ]
+}

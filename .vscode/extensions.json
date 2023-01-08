@@ -3,6 +3,7 @@
         "ms-vscode.cpptools",
         "matepek.vscode-catch2-test-adapter",
         "bazelbuild.vscode-bazel",
+        "ryanluker.vscode-coverage-gutters",
         "github.vscode-pull-request-github"
     ]
 }
