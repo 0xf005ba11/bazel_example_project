@@ -1,6 +1,9 @@
 #include "lib/lib.h"
 
 #ifdef COMPILER_MSVC
+#include "WppTrace.h"
+#include "dll.tmh.h"
+
 #include <Windows.h>
 
 BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD reason, LPVOID reserved)

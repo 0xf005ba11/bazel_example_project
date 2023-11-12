@@ -1,10 +1,24 @@
 load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
+load("@bazel_ewdk_cc//:wpp_toolchain.bzl", "wpp_trace")
+
+filegroup(
+    name = "dll_cpps",
+    srcs = glob(["*.cpp"]),
+)
+
+wpp_trace(
+    name = "dll_wpp",
+    srcs = [":dll_cpps"],
+    cfghdr = "@//trace:tracing",
+    dll = True,
+    tags = ["manual"],
+)
 
 cc_library(
     name = "dll_impl",
     srcs = [
-        "dll.cpp",
         "dll.h",
+        ":dll_cpps",
     ],
     hdrs = ["dll.h"],  # public interface headers
     features = [
@@ -14,7 +28,10 @@ cc_library(
         "msvc_level4_warnings",
         "treat_warnings_as_errors",
     ],
-    deps = ["@//lib:lib"],
+    deps = [
+        ":dll_wpp",
+        "@//lib:lib",
+    ],
 )
 
 resource_script(
@@ -55,6 +72,7 @@ cc_test(
         "msvc_no_minmax",
         "subsystem_console",
         "static_link_msvcrt_no_debug",
+        "msvc_profile",
     ],
     deps = [
         ":dll_impl",

@@ -1,4 +1,5 @@
 load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
+load("@bazel_ewdk_cc//:wpp_toolchain.bzl", "wpp_trace")
 
 filegroup(
     name = "resource_hdrs",
@@ -12,9 +13,22 @@ resource_script(
     deps = [":resource_hdrs"],
 )
 
+filegroup(
+    name = "sys_cpps",
+    srcs = glob(["*.cpp"]),
+)
+
+wpp_trace(
+    name = "sys_wpp",
+    srcs = [":sys_cpps"],
+    cfghdr = "@//trace:tracing",
+    kernel = True,
+    tags = ["manual"],
+)
+
 cc_binary(
     name = "sys",
-    srcs = glob(["*.cpp"]) +
+    srcs = [":sys_cpps"] +
            select({
                "//:is_windows_x86": ["foo_x86.asm"],
                "//:is_windows_x64": ["foo_x64.asm"],
@@ -37,5 +51,8 @@ cc_binary(
     ],
     linkshared = True,
     target_compatible_with = ["@platforms//os:windows"],
-    deps = [":sys_rc"],
+    deps = [
+        ":sys_rc",
+        ":sys_wpp",
+    ],
 )
