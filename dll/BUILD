@@ -32,6 +32,9 @@ cc_library(
         ":dll_wpp",
         "@//lib:lib",
     ],
+    linkopts = [
+        "advapi32.lib",
+    ],
 )
 
 resource_script(

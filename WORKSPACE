@@ -6,7 +6,7 @@ git_repository(
     name = "bazel_ewdk_cc",
     commit = "9c4bebf71031d9c14aee8433945e351f614a9026",
     remote = "https://github.com/0xf005ba11/bazel_ewdk_cc",
-    shallow_since = "1673123164 -0700",
+    shallow_since = "1699824064 -0700",
 )
 
 # tag release-1.12.1 but shallow cloning
