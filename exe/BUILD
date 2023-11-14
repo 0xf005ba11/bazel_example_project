@@ -2,7 +2,7 @@ windows_features = [
     "cpp20",
     "subsystem_console",
     "msvc_level4_warnings",
-    "static_link_msvcrt",
+    "static_link_msvcrt_no_debug",
     "win32_lean_and_mean",
     "buffer_security_checks",
     "sdl_security_checks",

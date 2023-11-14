@@ -28,12 +28,13 @@ cc_library(
         "msvc_level4_warnings",
         "treat_warnings_as_errors",
     ],
+    linkopts = select({
+        "@platforms//os:windows": ["/DEFAULTLIB:advapi32.lib"],
+        "//conditions:default": [],
+    }),
     deps = [
         ":dll_wpp",
         "@//lib:lib",
-    ],
-    linkopts = [
-        "advapi32.lib",
     ],
 )
 
@@ -42,6 +43,16 @@ resource_script(
     rcfile = "dll.rc",
     tags = ["manual"],
 )
+
+# Note: cc_shared_library doesn't seem to properly pass features through on older bazel. This means
+#       dynamic_link_msvcrt_no_debug is likely to be used by default due to the CcCommon.java issue.
+#       Since cc_shared_library doesn't specify any features itself, to avoid linker warnings, just
+#       use dynamic_link_msvcrt_no_debug in the input libraries.
+#
+#       If you must have static linking, specify static_link_msvcrt_* appropriately in the input
+#       libraries, and specify the following in user_link_flags:
+#              /NODEFAULTLIB:msvcrt.lib
+#              /DEFAULTLIB:libcmt[d].lib
 
 cc_shared_library(
     name = "dll",
@@ -57,16 +68,42 @@ cc_shared_library(
     static_deps = ["@//lib:lib"],
     user_link_flags = select({
         "@platforms//os:linux": ["-Wl,--version-script,$(location @//dll:dll.lds)"],
+        "@platforms//os:windows": [
+            "/NODEFAULTLIB:msvcrt.lib",
+            "/DEFAULTLIB:libcmt.lib",
+        ],
         "//conditions:default": [],
     }),
     visibility = ["//visibility:public"],
     win_def_file = "dll.def",
 )
 
+# Note: cc_binary can't be used as a dynamic_dep
+#cc_binary(
+#    name = "dll",
+#    srcs = [],
+#    features = [
+#        "cpp20",
+#        "subsystem_windows",
+#        "static_link_msvcrt_no_debug",
+#        "msvc_level4_warnings",
+#        "treat_warnings_as_errors",
+#        "buffer_security_checks",
+#        "sdl_security_checks",
+#        "cfg_security_checks",
+#    ],
+#    linkshared = True,
+#    target_compatible_with = ["@platforms//os:windows"],
+#    deps = [
+#        ":dll_impl",
+#        ":dll_rc",
+#    ],
+#)
+
 cc_test(
     name = "dll_test",
     size = "small",
-    srcs = glob(["test/*.cpp"]),
+    srcs = glob(["test/*.cpp"]) + ["dll.h"],
     dynamic_deps = [":dll"],
     features = [
         "cpp20",
@@ -74,11 +111,10 @@ cc_test(
         "treat_warnings_as_errors",
         "msvc_no_minmax",
         "subsystem_console",
-        "static_link_msvcrt_no_debug",
+        "dynamic_link_msvcrt_no_debug",
         "msvc_profile",
     ],
     deps = [
-        ":dll_impl",
         "@gtest//:gtest_main",
     ],
 )
