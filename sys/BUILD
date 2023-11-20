@@ -1,5 +1,6 @@
 load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
 load("@bazel_ewdk_cc//:wpp_toolchain.bzl", "wpp_trace")
+load("@bazel_ewdk_cc//:ewdk_command.bzl", "ewdk_command")
 
 filegroup(
     name = "resource_hdrs",
@@ -27,7 +28,7 @@ wpp_trace(
 )
 
 cc_binary(
-    name = "sys",
+    name = "sys-dll",
     srcs = [":sys_cpps"] +
            select({
                "//:is_windows_x86": ["foo_x86.asm"],
@@ -55,4 +56,11 @@ cc_binary(
         ":sys_rc",
         ":sys_wpp",
     ],
+)
+
+ewdk_command(
+    name = "sys",
+    srcs = [":sys-dll"],
+    outs = ["sys.sys"],
+    cmd = "copy /y \"$(locations :sys-dll)\" \"$(locations :sys.sys)\" && SignTool.exe sign /ph /fd sha256 /n WDKTestCert \"$(locations :sys.sys)\"",
 )
