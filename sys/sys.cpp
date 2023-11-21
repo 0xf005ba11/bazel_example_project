@@ -5,7 +5,9 @@
 #include "WppTrace.h"
 #include "sys.tmh.h" // auto-generated
 
-#if defined(_AMD64_) || defined(_X86_)
+#if defined(_ARM64_)
+extern "C" ULONG Foo1234();
+#elif defined(_AMD64_) || defined(_X86_)
 extern "C" void GetCpuid(ULONG type, ULONG result[4]);
 
 bool SupportsRdrand()
@@ -36,12 +38,17 @@ extern "C" NTSTATUS NTAPI DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRI
     DbgPrint("sys: do(0x%p), path(%wZ)"
 #if defined(_AMD64_) || defined(_X86_)
              ", rdrand(%lu)"
+#elif defined(_ARM64_)
+             ", foo1234(%lu)"
 #endif
              "\n",
              DriverObject, RegistryPath
 #if defined(_AMD64_) || defined(_X86_)
              ,
              SupportsRdrand()
+#elif defined(_ARM64_)
+             ,
+             Foo1234()
 #endif
     );
 #endif

@@ -33,6 +33,7 @@ cc_binary(
            select({
                "//:is_windows_x86": ["foo_x86.asm"],
                "//:is_windows_x64": ["foo_x64.asm"],
+               "//:is_windows_arm64": ["foo_a64.asm"],
                "//conditions:default": [],
            }),
     features = [
@@ -41,9 +42,8 @@ cc_binary(
         "subsystem_native",
         "target_win10",
         "stdcall",
-        "strict_warnings",
+        "msvc_level4_warnings",
         "treat_warnings_as_errors",
-        "msvc_no_minmax",
         "buffer_security_checks",
         "sdl_security_checks",
         "cfg_security_checks",
@@ -63,4 +63,5 @@ ewdk_command(
     srcs = [":sys-dll"],
     outs = ["sys.sys"],
     cmd = "copy /y \"$(locations :sys-dll)\" \"$(locations :sys.sys)\" && SignTool.exe sign /ph /fd sha256 /n WDKTestCert \"$(locations :sys.sys)\"",
+    tags = ["manual"],
 )
