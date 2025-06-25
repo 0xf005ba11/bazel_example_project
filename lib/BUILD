@@ -6,6 +6,7 @@ cc_library(
     ],
     hdrs = ["lib.h"],
     features = [
+        "cpp20",
         "msvc_level4_warnings",
         "treat_warnings_as_errors",
         "static_link_msvcrt_no_debug",

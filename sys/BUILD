@@ -1,6 +1,6 @@
-load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
-load("@bazel_ewdk_cc//:wpp_toolchain.bzl", "wpp_trace")
-load("@bazel_ewdk_cc//:ewdk_command.bzl", "ewdk_command")
+load("@ewdk_cc_toolchains//:resource_toolchain.bzl", "resource_script")
+load("@ewdk_cc_toolchains//:wpp_toolchain.bzl", "wpp_trace")
+load("@ewdk_cc_toolchains//:ewdk_command.bzl", "ewdk_command")
 
 filegroup(
     name = "resource_hdrs",
