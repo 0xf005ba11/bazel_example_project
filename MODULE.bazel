@@ -1,0 +1,21 @@
+module(
+    name = "bazel_example_project",
+    repo_name = "bazel_example_project",
+)
+
+bazel_dep(
+    name = "platforms",
+    version = "0.0.11",
+)
+
+bazel_dep(
+    name = "googletest",
+    version = "1.17.0",
+)
+
+bazel_dep(name = "ewdk_cc_toolchains")
+git_override(
+    module_name = "ewdk_cc_toolchains",
+    remote = "https://github.com/0xf005ba11/bazel_ewdk_cc.git",
+    commit = "44e23c933a079190cdfb14f85e0d2d14b1ddbdf0",
+)

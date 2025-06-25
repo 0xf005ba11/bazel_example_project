@@ -1,5 +1,5 @@
-load("@bazel_ewdk_cc//:resource_toolchain.bzl", "resource_script")
-load("@bazel_ewdk_cc//:wpp_toolchain.bzl", "wpp_trace")
+load("@ewdk_cc_toolchains//:resource_toolchain.bzl", "resource_script")
+load("@ewdk_cc_toolchains//:wpp_toolchain.bzl", "wpp_trace")
 
 filegroup(
     name = "dll_cpps",
@@ -81,6 +81,6 @@ cc_test(
     ],
     deps = [
         "dll_impl",
-        "@gtest//:gtest_main",
+        "@googletest//:gtest_main",
     ],
 )
