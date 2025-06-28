@@ -1,3 +1,2 @@
-# Global features
-build --features=cpp20
+build --features=cpp_latest
 build --features=static_link_msvcrt
