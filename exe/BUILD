@@ -1,10 +1,10 @@
 load("//:platform_binary.bzl", "platform_binary")
 
 windows_features = [
-    "cpp20",
+    "cpp_latest",
     "subsystem_console",
     "msvc_level4_warnings",
-    "static_link_msvcrt_no_debug",
+    "static_link_msvcrt",
     "win32_lean_and_mean",
     "buffer_security_checks",
     "sdl_security_checks",

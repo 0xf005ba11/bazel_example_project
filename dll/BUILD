@@ -24,7 +24,7 @@ cc_library(
     features = [
         "cpp20",
         "subsystem_windows",
-        "static_link_msvcrt_no_debug",
+        "static_link_msvcrt",
         "msvc_level4_warnings",
         "treat_warnings_as_errors",
         "no_default_cpp_unwinding",
@@ -52,7 +52,7 @@ cc_binary(
     features = [
         "cpp20",
         "subsystem_windows",
-        "static_link_msvcrt_no_debug",
+        "static_link_msvcrt",
         "msvc_level4_warnings",
         "treat_warnings_as_errors",
         "buffer_security_checks",

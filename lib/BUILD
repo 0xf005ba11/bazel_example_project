@@ -9,7 +9,7 @@ cc_library(
         "cpp20",
         "msvc_level4_warnings",
         "treat_warnings_as_errors",
-        "static_link_msvcrt_no_debug",
+        "static_link_msvcrt",
     ],
     visibility = ["//visibility:public"],
     alwayslink = True,  # on linux this will effectively cause -whole-archive

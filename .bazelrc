@@ -1,12 +1,3 @@
-# Enables c++ toolchain selection via the new "platforms" mechanism
-# This flag will likely not be needed anymore when bazel 7.0.0 releases
-build --incompatible_enable_cc_toolchain_resolution
-
-# For access to cc_shared_library (experimental for years. default enabled 2023 Q1)
-build --experimental_cc_shared_library
-
-# Set this environment variable to disable auto cpp toolchain resolution
-#build --action_env=BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
-
-# Set a minimum cpp standard for all rules
+# Global features
 build --features=cpp20
+build --features=static_link_msvcrt
